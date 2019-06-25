@@ -31,7 +31,11 @@ public class UIbarService extends Service {
         Log.e("Service","STARTED");
       //  initScreenUtils();
         SetLayoutInService();
-        SetListener();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -45,8 +49,8 @@ public class UIbarService extends Service {
     private void SetLayoutInService(){
         manager = (WindowManager) getSystemService(WINDOW_SERVICE);
         params = new WindowManager.LayoutParams(
-                Width, // Ширина экрана
-                Height, // Высота экрана
+                WindowManager.LayoutParams.MATCH_PARENT, // Ширина экрана
+                WindowManager.LayoutParams.MATCH_PARENT, // Высота экрана
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,  // Говорим, что приложение будет поверх других. В поздних API > 26, данный флаг перенесен на TYPE_APPLICATION_OVERLAY
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,// Необходимо для того чтобы TouchEvent'ы в пустой области передавались на другие приложения
                 PixelFormat.TRANSLUCENT); // Само окно прозрачное
@@ -58,29 +62,8 @@ public class UIbarService extends Service {
 
         // Отображаем наш Layout
         rootView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.bottom_sheet, null);
-        AppGrab = rootView.findViewById(R.id.grab);
         manager.addView(rootView, params);
 
-    }
-
-    private void SetListener(){
-        AppGrab.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                switch (motionEvent.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-                        return true;
-                    case MotionEvent.ACTION_MOVE:
-                        params.height = Math.max(-((int) motionEvent.getRawY()), ScreenUtils.convertDpToPx(UIbarService.this, 5));
-                        manager.updateViewLayout(rootView, params);
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        return true;
-                }
-                return true;
-            }
-        });
     }
 
 }
