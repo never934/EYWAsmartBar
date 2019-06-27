@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.FrameLayout;
+import com.devadvance.circularseekbar.CircularSeekBar;
+
 
 import static android.support.design.widget.BottomSheetBehavior.STATE_DRAGGING;
 import static android.support.design.widget.BottomSheetBehavior.STATE_EXPANDED;
@@ -25,7 +27,6 @@ public class MyAccessibilityService extends AccessibilityService implements Acce
 
 
     private WindowManager windowManager;
-    private WindowManager.LayoutParams params;
     private FrameLayout rootView;
     private View llBottomSheet;
     private BottomSheetBehavior HomeBar;
