@@ -1,4 +1,4 @@
-package com.eywa_kitchen.EywaSmartBar;
+package com.eywa_kitchen.EywaSmartBar.utils;
 
 import android.content.Context;
 import android.view.GestureDetector;
